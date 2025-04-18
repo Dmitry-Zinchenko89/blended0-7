@@ -200,20 +200,35 @@ if (input) {
 // При відправці форми, очисти інпут, верни чек бокс у положення 
 // false, верни дефолтне значення "Anonymous" у span.
 
-const formEl = document.querySelector(".js-contact-form");
-formEl.addEventListener("submit", (event) => {
-   event.preventDefault(); 
+const form = document.querySelector('.js-contact-form');
+
+
+form.addEventListener('input', () => {
+  const name = input.value.trim();
+  output.textContent = name ? name : 'Anonymous';
 });
 
-const inputEl = document.querySelector(".js-username-input");
-const checkboxEl = document.querySelector(".js-policy-checkbox");
-if (inputEl.value.trim() !== "") {
-    console.log("Інпут не порожній!");
-}
-  if (checkboxEl.checked) {
-    console.log("Чекбокс активний (true)!");
-}
+form.addEventListener('submit', event => {
+  event.preventDefault();
 
+  const name = input.value.trim();
+  const isAccepted = checkbox.checked;
+
+  if (!name || !isAccepted) {
+    alert('Будь ласка, введіть ім’я та погодьтесь із політикою.');
+    return;
+  }
+
+  const userData = {
+    userName: name,
+  };
+
+  console.log('Дані форми:', userData);
+
+ 
+  form.reset();               
+  output.textContent = 'Anonymous'; 
+});
 
 
 
